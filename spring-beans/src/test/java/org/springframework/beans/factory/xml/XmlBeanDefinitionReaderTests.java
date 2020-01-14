@@ -101,6 +101,7 @@ public class XmlBeanDefinitionReaderTests {
 
 	@Test
 	public void withFreshInputStream() {
+		//BeanDefinitionRegistry 的简单实现 只提供bean的注册功能 不提供工厂功能 用于测试bean definition readers.
 		SimpleBeanDefinitionRegistry registry = new SimpleBeanDefinitionRegistry();
 		Resource resource = new ClassPathResource("test.xml", getClass());
 		new XmlBeanDefinitionReader(registry).loadBeanDefinitions(resource);

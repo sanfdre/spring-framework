@@ -125,7 +125,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		// the new (child) delegate with a reference to the parent for fallback purposes,
 		// then ultimately reset this.delegate back to its original (parent) reference.
 		// this behavior emulates a stack of delegates without actually necessitating one.
+
+		//第一次进来时候为Null
 		BeanDefinitionParserDelegate parent = this.delegate;
+		//创建一个 委托  并执行初始化默认值  会触发eventListener对应default事件
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
 		if (this.delegate.isDefaultNamespace(root)) {
@@ -145,8 +148,10 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			}
 		}
 
+		//在解析Bean之前 解析处理自定义xml属性 需自定义类实现相应接口
 		preProcessXml(root);
 		parseBeanDefinitions(root, this.delegate);
+		//在解析Bean之后 解析处理自定义xml属性 需自定义类实现相应接口
 		postProcessXml(root);
 
 		this.delegate = parent;
